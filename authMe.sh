@@ -13,6 +13,7 @@ for NAME in $NAMES; do
   sshpass -p $PASS scp -o "StrictHostKeyChecking no" /home/$USER/.ssh/id_rsa $USER@$NAME:/home/$USER/.ssh/id_rsa
   sshpass -p $PASS ssh $USER@$NAME 'echo hosts *' >>  /home/$USER/.ssh/config
   sshpass -p $PASS ssh $USER@$NAME 'echo StrictHostKeyChecking no' >> /home/$USER/.ssh/config
+  sshpass -p $PASS ssh $USER@$NAME 'chmod 400 ~/.ssh/config'
   echo "completed $NAME"
 done
 
