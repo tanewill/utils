@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -xv
 
 USER=azureuser
 PASS=Azure@123
