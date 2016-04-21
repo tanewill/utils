@@ -21,7 +21,7 @@ for NAME in $NAMES; do
   sshpass -p $PASS ssh $USER@$NAME 'touch /home/'$USER'/config'
   sshpass -p $PASS ssh $USER@$NAME 'echo Host *' >>  /home/$USER/.ssh/config
   sshpass -p $PASS ssh $USER@$NAME 'echo StrictHostKeyChecking no' >> /home/$USER/.ssh/config
-  sshpass -p $PASS ssh $USER@$NAME 'chmod 400 ~/.ssh/config'
+  sshpass -p $PASS ssh $USER@$NAME 'chmod 400 /home/'$USER'/.ssh/config'
   echo "completed $NAME"
 done
 
