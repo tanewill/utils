@@ -4,8 +4,8 @@ USER=azureuser
 PASS=Azure@123
 HEADNODE=`hostname`
 
-Mkdir -p .ssh
-runuser -l azureuser -c "echo -e  'y\n' | ssh-keygen -f .ssh/id_rsa -t rsa -N ''"
+mkdir -p .ssh
+echo -e  'y\n' | ssh-keygen -f .ssh/id_rsa -t rsa -N ''
 
 echo 'Host *' >> .ssh/config
 echo 'StrictHostKeyChecking no' >> .ssh/config
@@ -30,4 +30,7 @@ for NAME in $NAMES; do
                 sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$SUBNODE 'mkdir -p .ssh'
                 cat .ssh/sub_node.pub | sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$SUBNODE 'cat >> .ssh/authorized_keys'
         done
+        sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'chmod 700 .ssh/'
+        sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'chmod 640 .ssh/authorized_keys'
+
 done
