@@ -6,7 +6,7 @@ nmap -sn 10.0.0.* | grep 10.0.0. | awk '{print $5}' > nodeips.txt
 for NAME in `cat nodeips.txt`; do sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'hostname';done
 for NAME in `cat nodeips.txt`; do sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'hostname' >> nodenames.txt;done
 
-HOSTIP=`ifconfig eth0 | grep 'inet ' | awk '{print $2}'`
+HOSTIP=`hostname`
 cp /home/$USER/.ssh/id_rsa.pub /home/$USER/.ssh/authorized_keys
 NAMES=`cat nodenames.txt` #names from names.txt file
 for NAME in $NAMES; do
