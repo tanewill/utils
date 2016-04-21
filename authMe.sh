@@ -2,12 +2,16 @@
 
 USER=azureuser
 PASS=Azure@123
+nmap -sn 10.0.0.* | grep 10.0.0. | awk '{print $5}' > nodeips.txt
+for NAME in `cat nodeips.txt`; do sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'hostname';done
+for NAME in `cat nodeips.txt`; do sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'hostname' >> nodenames.txt;done
+
 HOSTIP=`ifconfig eth0 | grep 'inet ' | awk '{print $2}'`
 cp /home/$USER/.ssh/id_rsa.pub /home/$USER/.ssh/authorized_keys
 NAMES=`cat nodenames.txt` #names from names.txt file
 for NAME in $NAMES; do
   echo "working on $NAME"
-  if [ $NAME = $HOSTIP ]
+  if [ $NAME = "yellowlavcomp0" ]
     then
       echo "$HOSTIP" is current machine
       continue
@@ -18,10 +22,11 @@ for NAME in $NAMES; do
   sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'chmod 644 /home/$USER/.ssh/authorized_keys'
   sshpass -p $PASS scp -o "StrictHostKeyChecking no" -o ConnectTimeout=2 /home/$USER/.ssh/known_hosts $USER@$NAME:/home/$USER/.ssh/known_hosts
   sshpass -p $PASS scp -o "StrictHostKeyChecking no" -o ConnectTimeout=2 /home/$USER/.ssh/id_rsa $USER@$NAME:/home/$USER/.ssh/id_rsa
-  sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'touch /home/'$USER'/.ssh/config'
+  sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'touch /home/'$USER'/config'
   sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'echo "Host *" >>  /home/'$USER'/.ssh/config'
   sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'echo StrictHostKeyChecking no >> /home/'$USER'/.ssh/config'
   sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'chmod 400 /home/'$USER'/.ssh/config'
   echo "completed $NAME"
 done
+
 
