@@ -19,8 +19,8 @@ for NAME in $NAMES; do
   sshpass -p $PASS scp -o "StrictHostKeyChecking no" -o ConnectTimeout=2 /home/$USER/.ssh/known_hosts $USER@$NAME:/home/$USER/.ssh/known_hosts
   sshpass -p $PASS scp -o "StrictHostKeyChecking no" -o ConnectTimeout=2 /home/$USER/.ssh/id_rsa $USER@$NAME:/home/$USER/.ssh/id_rsa
   sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'touch /home/'$USER'/config'
-  sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'echo Host *' >>  /home/$USER/.ssh/config
-  sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'echo StrictHostKeyChecking no' >> /home/$USER/.ssh/config
+  sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'echo Host * >>  /home/'$USER'/.ssh/config'
+  sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'echo StrictHostKeyChecking no >> /home/'$USER'/.ssh/config'
   sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'chmod 400 /home/'$USER'/.ssh/config'
   echo "completed $NAME"
 done
