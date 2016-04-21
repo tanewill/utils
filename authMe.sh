@@ -18,9 +18,9 @@ for NAME in $NAMES; do
   sshpass -p $PASS ssh $USER@$NAME 'chmod 644 /home/$USER/.ssh/authorized_keys'
   sshpass -p $PASS scp -o "StrictHostKeyChecking no" /home/$USER/.ssh/known_hosts $USER@$NAME:/home/$USER/.ssh/known_hosts
   sshpass -p $PASS scp -o "StrictHostKeyChecking no" /home/$USER/.ssh/id_rsa $USER@$NAME:/home/$USER/.ssh/id_rsa
-  sshpass -p $PASS ssh $USER@$NAME 'touch /home/$USER/config'
-  sshpass -p $PASS ssh $USER@$NAME 'echo Host * >>  /home/$USER/.ssh/config'
-  sshpass -p $PASS ssh $USER@$NAME 'echo StrictHostKeyChecking no >> /home/$USER/.ssh/config'
+  sshpass -p $PASS ssh $USER@$NAME 'touch /home/'$USER'/config'
+  sshpass -p $PASS ssh $USER@$NAME 'echo Host *' >>  /home/$USER/.ssh/config
+  sshpass -p $PASS ssh $USER@$NAME 'echo StrictHostKeyChecking no' >> /home/$USER/.ssh/config
   sshpass -p $PASS ssh $USER@$NAME 'chmod 400 ~/.ssh/config'
   echo "completed $NAME"
 done
