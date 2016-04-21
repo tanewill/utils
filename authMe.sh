@@ -11,7 +11,7 @@ cp /home/$USER/.ssh/id_rsa.pub /home/$USER/.ssh/authorized_keys
 NAMES=`cat nodenames.txt` #names from names.txt file
 for NAME in $NAMES; do
   echo "working on $NAME"
-  if [ $NAME = "yellowlavcomp0" ]
+  if [ $NAME = $HOSTIP ]
     then
       echo "$HOSTIP" is current machine
       continue
