@@ -1,7 +1,11 @@
 #!/bin/bash
+#for centos user must first install epel-release, sshpass, and nmap (sshpass and nmap are available from epel-release for CENTOS)
 
-USER=azdemo
-PASS=YellowRed
+#usage ./authMe2.sh [username] [password] [internalIP prefix]
+# ./authMe2.sh azureuser Azure@123 10.2.1
+USER=$1
+PASS=$2
+IPPRE=$3
 HEADNODE=`hostname`
 
 mkdir -p .ssh
@@ -12,7 +16,7 @@ echo 'StrictHostKeyChecking no' >> .ssh/config
 chmod 400 .ssh/config
 chown azureuser:azureuser /home/azureuser/.ssh/config
 
-nmap -sn 10.2.1.* | grep 10.2.1. | awk '{print $5}' > nodeips.txt
+nmap -sn $IPPRE.* | grep $IPPRE. | awk '{print $5}' > nodeips.txt
 for NAME in `cat nodeips.txt`; do sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'hostname' >> nodenames.txt;done
 
 NAMES=`cat nodenames.txt` #names from names.txt file
