@@ -1,7 +1,7 @@
 #!/bin/bash
 
-USER=azureuser
-PASS=Azure@123
+USER=azdemo
+PASS=YellowRed
 HEADNODE=`hostname`
 
 mkdir -p .ssh
@@ -12,12 +12,13 @@ echo 'StrictHostKeyChecking no' >> .ssh/config
 chmod 400 .ssh/config
 chown azureuser:azureuser /home/azureuser/.ssh/config
 
-nmap -sn 10.0.0.* | grep 10.0.0. | awk '{print $5}' > nodeips.txt
+nmap -sn 10.2.1.* | grep 10.2.1. | awk '{print $5}' > nodeips.txt
 for NAME in `cat nodeips.txt`; do sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'hostname' >> nodenames.txt;done
 
 NAMES=`cat nodenames.txt` #names from names.txt file
 for NAME in $NAMES; do
         sshpass -p $PASS scp -o "StrictHostKeyChecking no" -o ConnectTimeout=2 /home/$USER/nodenames.txt $USER@$NAME:/home/$USER/
+        sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME "mkdir .ssh && chmod 700 .ssh"
         sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME "echo -e  'y\n' | ssh-keygen -f .ssh/id_rsa -t rsa -N ''"
         sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'touch /home/'$USER'/.ssh/config'
         sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'echo "Host *" >  /home/'$USER'/.ssh/config'
