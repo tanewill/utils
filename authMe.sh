@@ -1,7 +1,7 @@
 #!/bin/bash -xv
 
-USER=azureuser
-PASS=Azure@123
+USER=$1
+PASS=$2
 nmap -sn 10.0.0.* | grep 10.0.0. | awk '{print $5}' > nodeips.txt
 for NAME in `cat nodeips.txt`; do sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'hostname';done
 for NAME in `cat nodeips.txt`; do sshpass -p $PASS ssh -o ConnectTimeout=2 $USER@$NAME 'hostname' >> nodenames.txt;done
