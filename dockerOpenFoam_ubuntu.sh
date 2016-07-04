@@ -9,7 +9,7 @@ apt-get update
 apt-get purge lxc-docker
 apt-cache policy docker-engine
 apt-get update
-apt-get install docker-engine
+apt-get install -y docker-engine
 service docker start
 docker run hello-world
 docker search openfoam
