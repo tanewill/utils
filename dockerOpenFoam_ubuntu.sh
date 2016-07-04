@@ -12,7 +12,8 @@ apt-get update
 apt-get install -y docker-engine
 service docker start
 docker run hello-world
+cp -r /opt/openfoam231/tutorials/ /home/ubuntu
 docker search openfoam
 docker run -v /home/azureuser:/home/ubuntu/ -ti jarrodsinclair/openfoam_2.3.1 /bin/bash
-exit
-cp -r /opt/openfoam231/tutorials/ /home/ubuntu
+
+
