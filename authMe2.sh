@@ -2,7 +2,7 @@
 #for centos user must first install epel-release, sshpass, and nmap (sshpass and nmap are available from epel-release for CENTOS)
 
 #usage ./authMe2.sh [username] [password] [internalIP prefix]
-# ./authMe2.sh azureuser Azure@123 10.2.1
+# ./authMe2.sh azureuser password 10.2.1
 USER=$1
 PASS=$2
 IPPRE=$3
