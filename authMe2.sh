@@ -1,6 +1,6 @@
 #!/bin/bash
 #for centos user must first install epel-release, sshpass, and nmap (sshpass and nmap are available from epel-release for CENTOS)
-
+#this file must be run from the users home directory
 #usage ./authMe2.sh [username] [password] [internalIP prefix]
 # ./authMe2.sh azureuser password 10.2.1
 USER=$1
